@@ -23,15 +23,20 @@ class MainScene extends Phaser.Scene {
         this.taro = taro;
         const hanako = this.physics.add.sprite(750, 400, 'hanako');
         this.hanako = hanako;
+        let staticGroup = this.physics.add.staticGroup();
         for(let i = 0; i < 5; i++){
         let randx = Phaser.Math.Between(25, 775) ; // y は　50～750の間の値
         let randy =  Phaser.Math.Between(25, 425) ;  // y は　50～200の間の値
-        this.add.image(randx,randy,'ringo');
+        staticGroup.create(randx,randy,'ringo');
         }
         for(let i = 0; i < 5; i++){
         let randx2 = Phaser.Math.Between(25, 775) ; // y は　50～750の間の値
         let randy2 =  Phaser.Math.Between(25, 425) ;
-        this.add.image(randx2,randy2,'orange');
+        staticGroup.create(randx2,randy2,'orange');
+        }
+        this.physics.add.overlap(taro, staticGroup, stopgame, null, this);
+        function stopgame(p){
+            this.physics.pause();
         }
     }
 
