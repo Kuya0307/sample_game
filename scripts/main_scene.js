@@ -1,10 +1,12 @@
 class MainScene extends Phaser.Scene {
+    // fruits = 0;
 
     // コンストラクタ
     constructor() {
         //Sceneを拡張してクラスを作る際にコンストラクタでSceneの設定を渡します
         //keyでシーンのキー、activeでシーンの自動実行を設定できます
        super({ key: 'MyScene1', active: true });
+       this.fruits = 0;//取得した果物の数
    }
 
     preload() {
@@ -34,7 +36,12 @@ class MainScene extends Phaser.Scene {
         let randy2 =  Phaser.Math.Between(25, 425) ;
         staticGroup.create(randx2,randy2,'orange');
         }
-        this.physics.add.overlap(taro, staticGroup, stopgame, null, this);
+        // this.physics.add.overlap(taro, staticGroup, stopgame, null, this);
+        this.physics.add.overlap(hanako, staticGroup, countfruits, null, this);
+        function countfruits(hanako,fruits){
+            this.fruits+=1;
+            fruits.destroy();
+        }
         function stopgame(p){
             this.physics.pause();
         }
@@ -65,6 +72,11 @@ class MainScene extends Phaser.Scene {
             this.taro.setVelocityY(0);// 縦方向の速度を0
             this.hanako.setVelocityX(0);// 横方向の速度を0
             this.hanako.setVelocityY(0);// 縦方向の速度を0
+        }
+
+        //フルーツを10個取ったらゲームを止める
+        if(this.fruits >= 10){
+            this.physics.pause(this.add.text(400,200, 'CLEAR', { fontSize: '32px', fill: '#CDC' }));
         }
     }
     
