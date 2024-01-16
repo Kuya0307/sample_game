@@ -36,14 +36,14 @@ class MainScene extends Phaser.Scene {
         let randy2 =  Phaser.Math.Between(25, 425) ;
         staticGroup.create(randx2,randy2,'orange');
         }
-        // this.physics.add.overlap(taro, staticGroup, stopgame, null, this);
+        this.physics.add.overlap(taro, staticGroup, stopgame, null, this);
         this.physics.add.overlap(hanako, staticGroup, countfruits, null, this);
         function countfruits(hanako,fruits){
             this.fruits+=1;
             fruits.destroy();
         }
         function stopgame(p){
-            this.physics.pause();
+            this.physics.pause(this.add.text(400,200, 'GAME OVER', { fontSize: '32px', fill: '#CDC' }));
         }
     }
 
