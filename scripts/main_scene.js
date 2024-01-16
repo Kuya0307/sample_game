@@ -35,6 +35,7 @@ class MainScene extends Phaser.Scene {
         staticGroup.create(randx2,randy2,'orange');
         }
         this.physics.add.overlap(taro, staticGroup, stopgame, null, this);
+        this.physics.add.overlap(hanako, staticGroup, stopgame, null, this);
         function stopgame(p){
             this.physics.pause();
         }
